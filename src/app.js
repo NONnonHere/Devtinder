@@ -4,7 +4,7 @@ const app = express();
 
 
 
-app.use( "/test",(req,res) => {
+app.use( "/te+st",(req,res) => {
     res.send("Hello lawda"); 
 });
 
