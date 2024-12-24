@@ -65,6 +65,7 @@ app.get("/profile", userAuth, async (req, res) => {
     res.send(user);
     
 }
+
     catch(err){
         res.status(401).send("Unauthorized");
     }
