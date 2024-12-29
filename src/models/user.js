@@ -72,4 +72,12 @@ userSchema.methods.validatePassword = async function (passwordInputByUser){
 }
 
 
-module.exports = mongoose.model("User", userSchema);
+
+userSchema.methods.generatePasswordReset = function() { this.resetPasswordToken = jwt.sign({ _id: this._id }, 
+    'secret', 
+    { expiresIn: '1h' }); 
+    this.resetPasswordExpires = Date.now() + 3600000;
+}
+const User = mongoose.model("User", userSchema);
+
+module.exports = User ; 
