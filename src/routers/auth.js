@@ -9,15 +9,13 @@ const jwt  = require("jsonwebtoken");
 const User = require("../models/user"); 
 
 authRouter.post("/signup", async (req,res) => {
-
     try{
-        validteSignUpData(req);
+        // validteSignUpData(req);
 
         const {password, emailId, firstName, lastName} = req.body;
 
         const passwordHash = await bcrypt.hash(password,10);
        
-    
         const user = new User({
             firstName,
             lastName,
@@ -32,8 +30,6 @@ authRouter.post("/signup", async (req,res) => {
     catch(err){
         res.status(400).send("Error Occurred " +err.message);
     }
-    
-
 });
 
 authRouter.post("/login", async (req, res) => {

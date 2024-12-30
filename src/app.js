@@ -17,7 +17,7 @@ const { userAuth} = require("./middlewares/auth.js");
 const {authRouter} = require("./routers/auth.js");
 const {profileRouter} =  require("./routers/profile.js");
 const {PasswordRouter} = require("./routers/forgotPassword.js");
-// const requestRouter = require("./routers/request.js");
+const {requestRouter} = require("./routers/request.js");
 
 
 app.use(cookieParser());
@@ -27,9 +27,8 @@ app.use(express.json());
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/",PasswordRouter);
+app.use("/", requestRouter);
 
-
-// app.use("/", requestRouter);
 
 
 
