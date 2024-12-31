@@ -5,12 +5,12 @@ const bcrypt = require('bcrypt');
 const cookieParser  =  require("cookie-parser");
 const jwt  = require("jsonwebtoken");
 
-
+const {validteSignUpData} = require("../utils/validation");
 const User = require("../models/user"); 
 
 authRouter.post("/signup", async (req,res) => {
     try{
-        // validteSignUpData(req);
+        validteSignUpData(req);
 
         const {password, emailId, firstName, lastName} = req.body;
 

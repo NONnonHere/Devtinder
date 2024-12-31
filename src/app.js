@@ -18,6 +18,7 @@ const {authRouter} = require("./routers/auth.js");
 const {profileRouter} =  require("./routers/profile.js");
 const {PasswordRouter} = require("./routers/forgotPassword.js");
 const {requestRouter} = require("./routers/request.js");
+const {userRouter} = require("./routers/user.js");
 
 
 app.use(cookieParser());
@@ -28,6 +29,7 @@ app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/",PasswordRouter);
 app.use("/", requestRouter);
+app.use("/", userRouter);
 
 
 

@@ -2,10 +2,12 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const bcrypt = require('bcrypt');
 const jwt  = require("jsonwebtoken");
+const User = require("./user");
 
 const connectionRequestSchema = new mongoose.Schema({
     fromUserId :{
         type: mongoose.Schema.Types.ObjectId,
+        ref : "User",
     },
     toUserId : {
         type: mongoose.Schema.Types.ObjectId,
