@@ -28,7 +28,7 @@ userRouter.get("/user/request/received", userAuth , async (req , res) => {
     }
 });
 
-userRouter.get("/user/donnections", userAuth , async (req , res) => {
+userRouter.get("/user/connections", userAuth , async (req , res) => {
     try{const loginnedUser = req.user._id;
 
     const connections = await ConnectionRequest.find({
@@ -54,6 +54,39 @@ userRouter.get("/user/donnections", userAuth , async (req , res) => {
     catch(err){
         res.status(400).send("Something went wrong " + err.message);
     }
+});
+
+userRouter.get("/feed", userAuth , async (req,res) => {
+    try{const logginedUser = req.user;
+
+        const page  = parseInt(req.query.page) || 1;
+        let limit  = parseInt(req.query.limit) || 10;
+        limit = limit>10 ? 10 : limit;
+        const skip = (page-1)*limit;
+    
+    const connectionRequests = await ConnectionRequest.find({
+        $or :[{fromUserId : logginedUser._id}, {toUserId : logginedUser._id}],
+    }).select("fromUserId  toUserId");
+
+
+    const hideFromFeed = new Set();
+    connectionRequests.forEach((req) => {
+    hideFromFeed.add(req.fromUserId.toString());    
+    hideFromFeed.add(req.toUserId.toString());
+    
+    });
+    const users = await User.find({
+        $and : [
+            {_id :{ $nin : Array.from(hideFromFeed)}},
+            { _id : {$ne: logginedUser._id} }
+        ],
+    }).select("firstName lastName").skip(skip).limit(limit);
+
+    res.send(users);
+}
+catch(err){
+    res.status(400).send("Something went wrong " + err.message);
+}
 });
 
 module.exports = {
