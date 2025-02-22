@@ -2,7 +2,7 @@ const express = require("express");
 
 const connectDB  = require("./config/database.js");
 const app = express();
-
+const cors = require("cors");
 
 
 const User = require("./models/user.js"); 
@@ -20,7 +20,11 @@ const {PasswordRouter} = require("./routers/forgotPassword.js");
 const {requestRouter} = require("./routers/request.js");
 const {userRouter} = require("./routers/user.js");
 
-
+app.use(cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+}
+));
 app.use(cookieParser());
 app.use(express.json());
 
